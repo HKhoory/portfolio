@@ -11,14 +11,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0A0E1A;
-      --bg-card:   #141928;
-      --bg-card2:  #1C2237;
-      --cyan:      #00E5FF;
-      --purple:    #6B4FBB;
-      --white:     #F0EDE8;
-      --muted:     #7A8499;
-      --border:    rgba(0,229,255,0.15);
+      --bg:        #120E08;
+      --bg-card:   #1E1710;
+      --bg-card2:  #271F14;
+      --cyan:      #E8A838;
+      --purple:    #B85C38;
+      --white:     #F5EED8;
+      --muted:     #8C7A5E;
+      --border:    rgba(232,168,56,0.15);
     }
 
     html { scroll-behavior: smooth; }
@@ -93,15 +93,15 @@
           0deg,
           transparent,
           transparent 3px,
-          rgba(0,229,255,0.025) 3px,
-          rgba(0,229,255,0.025) 4px
+          rgba(232,168,56,0.025) 3px,
+          rgba(232,168,56,0.025) 4px
         ),
         repeating-linear-gradient(
           90deg,
           transparent,
           transparent 3px,
-          rgba(0,229,255,0.015) 3px,
-          rgba(0,229,255,0.015) 4px
+          rgba(232,168,56,0.015) 3px,
+          rgba(232,168,56,0.015) 4px
         );
       pointer-events: none;
       z-index: 0;
@@ -112,7 +112,7 @@
       content: '';
       position: absolute;
       width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(107,79,187,0.18) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(184,92,56,0.18) 0%, transparent 70%);
       top: -100px; right: -100px;
       pointer-events: none;
       z-index: 0;
@@ -121,9 +121,66 @@
     .hero-content {
       position: relative;
       z-index: 1;
-      text-align: center;
-      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      padding: 2rem 3rem;
+      max-width: 1100px;
+      width: 100%;
     }
+
+    /* Photo */
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .hero-photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 40px rgba(232,168,56,0.18);
+    }
+
+    /* Placeholder shown when no image is set */
+    .hero-photo-placeholder {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 2px dashed rgba(232,168,56,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--bg-card);
+    }
+
+    .hero-photo-placeholder svg { opacity: 0.35; }
+
+    /* Decorative ring */
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      animation: spin-ring 20s linear infinite;
+      border-top-color: var(--cyan);
+    }
+
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-text { text-align: left; }
 
     .hero-eyebrow {
       font-family: 'Rajdhani', sans-serif;
@@ -137,7 +194,7 @@
 
     .hero-name {
       font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-size: clamp(3rem, 7vw, 6rem);
       font-weight: 700;
       line-height: 1;
       letter-spacing: -0.01em;
@@ -171,7 +228,6 @@
 
     .hero-desc {
       max-width: 520px;
-      margin: 0 auto;
       color: var(--muted);
       font-size: 1.05rem;
       font-weight: 300;
@@ -297,7 +353,7 @@
 
     .game-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(0,229,255,0.4);
+      border-color: rgba(232,168,56,0.4);
     }
 
     .game-card-img {
@@ -371,7 +427,7 @@
       font-weight: 500;
     }
 
-    .tag.skill { border-color: rgba(107,79,187,0.4); color: #a893e8; }
+    .tag.skill { border-color: rgba(184,92,56,0.4); color: #e0916e; }
 
     .game-team {
       font-size: 0.75rem;
@@ -392,7 +448,7 @@
       color: var(--cyan);
       text-decoration: none;
       padding: 0.45rem 1rem;
-      border: 1px solid rgba(0,229,255,0.35);
+      border: 1px solid rgba(232,168,56,0.35);
       transition: background 0.2s, color 0.2s;
       align-self: flex-start;
     }
@@ -400,6 +456,59 @@
     .game-link:hover {
       background: var(--cyan);
       color: var(--bg);
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .skills-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.8rem 2rem;
+    }
+
+    .skills-category-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-pill {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--border);
+      color: var(--white);
+      background: var(--bg-card2);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-pill:hover {
+      border-color: rgba(232,168,56,0.4);
+      color: var(--cyan);
+    }
+
+    .skill-pill.soft {
+      border-color: rgba(184,92,56,0.35);
+      color: #e0916e;
+      background: rgba(184,92,56,0.08);
     }
 
     /* ─── CONTACT ─── */
@@ -422,7 +531,7 @@
     }
 
     .contact-card:hover {
-      border-color: rgba(0,229,255,0.4);
+      border-color: rgba(232,168,56,0.4);
       background: var(--bg-card2);
     }
 
@@ -464,8 +573,13 @@
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
       section { padding: 5rem 1.5rem; }
+      .hero-content { flex-direction: column; text-align: center; gap: 2.5rem; padding: 2rem 1.5rem; }
+      .hero-text { text-align: center; }
+      .hero-desc { margin: 0 auto; }
+      .hero-photo, .hero-photo-placeholder { width: 160px; height: 160px; }
     }
 
     @media (max-width: 480px) {
@@ -487,6 +601,7 @@
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
       <li><a href="#games">Games</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -495,14 +610,25 @@
   <!-- HOME -->
   <section id="home" style="max-width:none; padding:0;">
     <div class="hero-content">
-      <p class="hero-eyebrow">Game Designer &amp; Developer</p>
-      <h1 class="hero-name">
-        [Insert<br/><span data-text="Name]">Name]</span>
-      </h1>
-      <p class="hero-desc">
-        A short description about what you do, what drives you, and what kind of games you create. Keep it punchy — two or three sentences.
-      </p>
-      <a href="#games" class="hero-cta">View My Work</a>
+      <!-- PHOTO: replace the placeholder div with: <img src="your-photo.jpg" alt="[Your Name]" class="hero-photo"> -->
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-placeholder">
+          <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          Your photo
+        </div>
+      </div>
+      <div class="hero-text">
+        <p class="hero-eyebrow">Game Designer &amp; Developer</p>
+        <h1 class="hero-name">
+          [Insert<br/><span data-text="Name]">Name]</span>
+        </h1>
+        <p class="hero-desc">
+          A short description about what you do, what drives you, and what kind of games you create. Keep it punchy — two or three sentences.
+        </p>
+        <a href="#games" class="hero-cta">View My Work</a>
+      </div>
     </div>
   </section>
 
@@ -538,6 +664,47 @@
           <div class="stat-label">Years Designing</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+
+      <div class="skills-category">
+        <p class="skills-category-title">Soft Skills</p>
+        <div class="skills-list">
+          <span class="skill-pill soft">Creative Problem Solving</span>
+          <span class="skill-pill soft">Team Collaboration</span>
+          <span class="skill-pill soft">Communication</span>
+          <span class="skill-pill soft">Playtesting & Iteration</span>
+          <span class="skill-pill soft">Project Management</span>
+          <span class="skill-pill soft">Critical Thinking</span>
+          <span class="skill-pill soft">Adaptability</span>
+        </div>
+      </div>
+
+      <div class="skills-category">
+        <p class="skills-category-title">Software & Tools</p>
+        <div class="skills-list">
+          <span class="skill-pill">Unity</span>
+          <span class="skill-pill">Unreal Engine</span>
+          <span class="skill-pill">Godot</span>
+          <span class="skill-pill">C#</span>
+          <span class="skill-pill">GDScript</span>
+          <span class="skill-pill">Blender</span>
+          <span class="skill-pill">Figma</span>
+          <span class="skill-pill">Miro</span>
+          <span class="skill-pill">Trello</span>
+          <span class="skill-pill">Notion</span>
+          <span class="skill-pill">GitHub</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
