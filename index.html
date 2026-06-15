@@ -622,13 +622,134 @@
       .hero-name span::after { animation: none; }
       html { scroll-behavior: auto; }
     }
-  </style>
+    /* ─── GAME MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 820px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      width: 36px;
+      height: 36px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: border-color 0.2s, color 0.2s;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    .modal-screenshots {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: var(--bg);
+    }
+
+    .modal-screenshot {
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      width: 100%;
+      display: block;
+      background: var(--bg-card2);
+    }
+
+    .modal-screenshot-placeholder {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--bg-card2) 0%, #271a0e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      gap: 0.4rem;
+      flex-direction: column;
+    }
+
+    .modal-screenshot-placeholder svg { opacity: 0.3; }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .modal-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .modal-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* Make image area look clickable */
+    .img-placeholder, .game-card img.card-thumb {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .img-placeholder:hover, .game-card img.card-thumb:hover {
+      opacity: 0.8;
+    }
+
+  
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <a href="#home" class="nav-logo">Hamad Khoory Portfolio</a>
+    <a href="#home" class="nav-logo">[IN]</a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -640,23 +761,28 @@
 
   <!-- HOME -->
   <section id="home" style="max-width:none; padding:0;">
-  <div class="hero-content">
-    <div class="hero-photo-wrap">
-      <img src="hk-transparent.png" alt="[Your Name]" class="hero-photo">
+    <div class="hero-content">
+      <!-- PHOTO: replace the placeholder div with: <img src="your-photo.jpg" alt="[Your Name]" class="hero-photo"> -->
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-placeholder">
+          <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          Your photo
+        </div>
+      </div>
+      <div class="hero-text">
+        <p class="hero-eyebrow">Game Designer &amp; Developer</p>
+        <h1 class="hero-name">
+          [Insert<br/><span data-text="Name]">Name]</span>
+        </h1>
+        <p class="hero-desc">
+          A short description about what you do, what drives you, and what kind of games you create. Keep it punchy — two or three sentences.
+        </p>
+        <a href="#games" class="hero-cta">View My Work</a>
+      </div>
     </div>
-    <div class="hero-text">
-    <style="font-size: 1.2rem;">
-      <p class="hero-eyebrow">Game Designer</p>
-      <h1 class="hero-name">
-        Hamad<br/><span data-text="Name]">Khoory</span>
-      </h1>
-      <p class="hero-desc">
-        A short description about what you do, what drives you, and what kind of games you create. Keep it punchy — two or three sentences.
-      </p>
-      <a href="#games" class="hero-cta">View My Work</a>
-    </div>
-  </div>
-</section>
+  </section>
 
   <div class="section-divider"></div>
 
@@ -678,15 +804,15 @@
       </div>
       <div class="about-sidebar">
         <div class="stat-block">
-          <div class="stat-value">1</div>
-          <div class="stat-label">Game Shipped</div>
+          <div class="stat-value">##</div>
+          <div class="stat-label">Games Shipped</div>
         </div>
         <div class="stat-block">
-          <div class="stat-value">5</div>
+          <div class="stat-value">##</div>
           <div class="stat-label">Game Jams Entered</div>
         </div>
         <div class="stat-block">
-          <div class="stat-value">4</div>
+          <div class="stat-value">##</div>
           <div class="stat-label">Years Designing</div>
         </div>
       </div>
@@ -705,10 +831,11 @@
         <p class="skills-category-title">Soft Skills</p>
         <div class="skills-list">
           <span class="skill-pill soft">Creative Problem Solving</span>
-          <span class="skill-pill soft">Teamwork</span>
+          <span class="skill-pill soft">Team Collaboration</span>
           <span class="skill-pill soft">Communication</span>
           <span class="skill-pill soft">Playtesting & Iteration</span>
           <span class="skill-pill soft">Project Management</span>
+          <span class="skill-pill soft">Critical Thinking</span>
           <span class="skill-pill soft">Adaptability</span>
         </div>
       </div>
@@ -718,12 +845,14 @@
         <div class="skills-list">
           <span class="skill-pill">Unity</span>
           <span class="skill-pill">Unreal Engine</span>
+          <span class="skill-pill">Godot</span>
           <span class="skill-pill">C#</span>
+          <span class="skill-pill">GDScript</span>
           <span class="skill-pill">Blender</span>
-          <span class="skill-pill">Aseprite</span>
-          <span class="skill-pill">Audacity</span>
+          <span class="skill-pill">Figma</span>
           <span class="skill-pill">Miro</span>
           <span class="skill-pill">Trello</span>
+          <span class="skill-pill">Notion</span>
           <span class="skill-pill">GitHub</span>
         </div>
       </div>
@@ -741,20 +870,20 @@
 
       <!-- CARD 1 — with link -->
       <div class="game-card">
-        <div class="img-placeholder">
+        <div class="img-placeholder" onclick="openModal('game1')">
           <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75L7.5 10.5l4.5 4.5 3-3 4.5 4.5M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z" />
           </svg>
-          Replace with screenshot
+          Click for details
         </div>
         <div class="game-card-body">
-          <h3 class="game-title">The X Floors</h3>
+          <h3 class="game-title">Game Title One</h3>
           <p class="game-desc">
             A short description of this game — genre, core loop, what makes it interesting. Two or three sentences is plenty.
           </p>
           <div class="game-meta">
             <span class="tag skill">Level Design</span>
-            <span class="tag skill">Playtesting</span>
+            <span class="tag skill">Narrative Design</span>
             <span class="tag skill">Unity</span>
           </div>
           <p class="game-team">Team size: <span>4 people</span></p>
@@ -764,65 +893,64 @@
 
       <!-- CARD 2 — with link -->
       <div class="game-card">
-        <div class="img-placeholder">
+        <div class="img-placeholder" onclick="openModal('game2')">
           <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75L7.5 10.5l4.5 4.5 3-3 4.5 4.5M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z" />
           </svg>
-          Replace with screenshot
+          Click for details
         </div>
         <div class="game-card-body">
-          <h3 class="game-title">Orphans of the Orchid</h3>
+          <h3 class="game-title">Game Title Two</h3>
           <p class="game-desc">
             Describe this project — what role did you play, what were the design challenges, what did you ship?
           </p>
           <div class="game-meta">
-            <span class="tag skill">Game Design</span>
-            <span class="tag skill">Audio Design</span>
+            <span class="tag skill">Systems Design</span>
+            <span class="tag skill">Godot</span>
             <span class="tag skill">Playtesting</span>
-            <span class="tag skill">Unity</span>
           </div>
-          <p class="game-team">Team size: <span>4 People</span></p>
+          <p class="game-team">Team size: <span>Solo project</span></p>
           <a href="https://your-game-link.com" target="_blank" rel="noopener" class="game-link">Play Game →</a>
         </div>
       </div>
 
       <!-- CARD 3 — no link -->
       <div class="game-card">
-        <div class="img-placeholder">
+        <div class="img-placeholder" onclick="openModal('game3')">
           <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75L7.5 10.5l4.5 4.5 3-3 4.5 4.5M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z" />
           </svg>
-          Replace with screenshot
+          Click for details
         </div>
         <div class="game-card-body">
-          <h3 class="game-title">Yowlah Superstars</h3>
+          <h3 class="game-title">Game Title Three</h3>
           <p class="game-desc">
-            A game project done by me under my studio Bedaoius. Tried to use my game design skills to gamify U.A.E. traditional dance.
+            Description for a game that doesn't have a public link yet — maybe it's a prototype, jam entry, or private project.
           </p>
           <div class="game-meta">
             <span class="tag skill">UX Design</span>
             <span class="tag skill">Unreal Engine</span>
             <span class="tag skill">Prototyping</span>
           </div>
-          <p class="game-team">Team size: <span>5 people</span></p>
+          <p class="game-team">Team size: <span>8 people</span></p>
           <!-- No link for this card -->
           <div class="store-buttons">
             <!-- Google Play -->
-            <a href="https://play.google.com/store/apps/details?id=com.Bedaoius.YowlahSuperstars&hl=en&pli=1" target="_blank" rel="noopener" class="store-btn">
+            <a href="https://play.google.com/store" target="_blank" rel="noopener" class="store-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M3.18 23.76c.3.17.64.24.99.2l12.7-11.7-2.59-2.59L3.18 23.76zM.5 1.1C.19 1.44 0 1.96 0 2.64v18.72c0 .68.19 1.2.5 1.54l.08.08 10.49-10.49v-.25L.58 1.02.5 1.1zM20.3 10.37l-2.99-1.73-2.91 2.91 2.91 2.91 3.01-1.74c.86-.49.86-1.29-.02-1.35zM4.17.24l12.7 11.7L14.28 9.35 4.17.24z"/>
               </svg>
               Google Play
             </a>
             <!-- Apple App Store -->
-            <a href="https://apps.apple.com/ae/app/yowlah-superstars/id6738099648" target="_blank" rel="noopener" class="store-btn">
+            <a href="https://apps.apple.com" target="_blank" rel="noopener" class="store-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.18 1.27-2.16 3.8.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.37 2.78M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
               </svg>
               App Store
             </a>
             <!-- Steam -->
-            <a href="https://store.steampowered.com/app/4227240/Yowlah_Superstars/" target="_blank" rel="noopener" class="store-btn">
+            <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="store-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.606 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.492 1.009 2.448-.4.957-1.494 1.41-2.455 1.019zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.662 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.252 0-2.265-1.014-2.265-2.265z"/>
               </svg>
@@ -843,7 +971,7 @@
     <h2 class="section-title">Contact</h2>
     <div class="contact-grid">
 
-      <a href="mailto:edu1khoory@hotmail.com" class="contact-card">
+      <a href="mailto:your@email.com" class="contact-card">
         <div class="contact-icon">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0l-9.75 6.75L2.25 6.75" />
@@ -851,11 +979,11 @@
         </div>
         <div>
           <p class="contact-label">Email</p>
-          <p class="contact-value">edu1khoory@hotmail.com</p>
+          <p class="contact-value">your@email.com</p>
         </div>
       </a>
 
-      <a href="https://linkedin.com/in/hamad-k-aa889926b" target="_blank" rel="noopener" class="contact-card">
+      <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener" class="contact-card">
         <div class="contact-icon">
           <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -863,7 +991,7 @@
         </div>
         <div>
           <p class="contact-label">LinkedIn</p>
-          <p class="contact-value">https://linkedin.com/in/hamad-k-aa889926b</p>
+          <p class="contact-value">linkedin.com/in/yourhandle</p>
         </div>
       </a>
 
@@ -871,8 +999,83 @@
   </section>
 
   <footer>
-    <p>© 2026 Hamad Khoory &nbsp;·&nbsp; Built with GitHub Pages</p>
+    <p>© 2026 [Insert Name] &nbsp;·&nbsp; Built with GitHub Pages</p>
   </footer>
+
+  <!-- GAME DETAIL MODAL -->
+  <div class="modal-overlay" id="gameModal" onclick="handleOverlayClick(event)">
+    <div class="modal" id="modalInner">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-screenshots" id="modalScreenshots"></div>
+      <div class="modal-body">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── GAME DATA ───────────────────────────────────────────────
+    // To add real screenshots, replace the screenshot arrays with
+    // image paths e.g. ['screenshots/game1-1.jpg', ...]
+    const games = {
+      game1: {
+        title: 'Game Title One',
+        desc: `This is the expanded description for Game One. Use this space to go into more depth about the project — what inspired it, what design challenges you faced, what your specific contributions were, and what you learned. A few paragraphs works well here.\n\nTalk about the mechanics, the tone, the target audience, or any interesting production stories. This is your chance to show your thinking process beyond what fits on the card.`,
+        screenshots: [null, null, null] // Replace null with 'path/to/screenshot.jpg'
+      },
+      game2: {
+        title: 'Game Title Two',
+        desc: `Expanded description for Game Two. Describe the design process in detail — what systems you built, how the team collaborated, what went well and what you'd do differently.\n\nYou can also mention player feedback, any metrics from playtesting, or how the project evolved from prototype to final version.`,
+        screenshots: [null, null, null]
+      },
+      game3: {
+        title: 'Game Title Three',
+        desc: `Expanded description for Game Three. Since this one has store links, you might want to highlight what makes it worth downloading — key features, how long it took to ship, what the reception was like.\n\nMention any press coverage, ratings, or notable player milestones if you have them.`,
+        screenshots: [null, null, null]
+      }
+    };
+
+    // ─── MODAL LOGIC ─────────────────────────────────────────────
+    const screenshotPlaceholderHTML = `
+      <div class="modal-screenshot-placeholder">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75L7.5 10.5l4.5 4.5 3-3 4.5 4.5M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z" />
+        </svg>
+        Screenshot
+      </div>`;
+
+    function openModal(gameId) {
+      const game = games[gameId];
+      if (!game) return;
+
+      document.getElementById('modalTitle').textContent = game.title;
+      document.getElementById('modalDesc').innerHTML = game.desc.replace(/\n\n/g, '</p><p class="modal-desc" style="margin-top:1rem;">');
+
+      const screenshotsEl = document.getElementById('modalScreenshots');
+      screenshotsEl.innerHTML = game.screenshots.map(src =>
+        src
+          ? `<img src="${src}" alt="Screenshot" class="modal-screenshot">`
+          : screenshotPlaceholderHTML
+      ).join('');
+
+      document.getElementById('gameModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('gameModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('gameModal')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 
 </body>
 </html>
