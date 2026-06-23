@@ -371,6 +371,7 @@
       position: relative;
       overflow: hidden;
       width: 100%;
+      cursor: pointer;
     }
 
     .card-year {
@@ -933,9 +934,9 @@
 
       <!-- CARD 1 — with link -->
       <div class="game-card">
-        <div class="card-image-wrap">
+        <div class="card-image-wrap" onclick="openModal('game1')">
           <span class="card-year">2022</span>
-          <img src="alghrooblogo.png" class="game-card-img" onclick="openModal('game1')">
+          <img src="alghrooblogo.png" class="game-card-img">
         </div>
         <div class="game-card-body">
           <h3 class="game-title">Al Ghroob</h3>
@@ -955,9 +956,9 @@
 
       <!-- CARD 2 — with link -->
       <div class="game-card">
-        <div class="card-image-wrap">
+        <div class="card-image-wrap" onclick="openModal('game2')">
           <span class="card-year">2023</span>
-          <img src="TheXFloorsLandscape.png" class="game-card-img" onclick="openModal('game2')">
+          <img src="TheXFloorsLandscape.png" class="game-card-img">
           </div>
         <div class="game-card-body">
           <h3 class="game-title">The X Floors</h3>
@@ -977,9 +978,9 @@
 
       <!-- CARD 3 — store links -->
       <div class="game-card">
-        <div class="card-image-wrap">
+        <div class="card-image-wrap" onclick="openModal('game3')">
           <span class="card-year">2024</span>
-          <img src="ysimage.jpg" class="game-card-img" onclick="openModal('game3')">
+          <img src="ysimage.jpg" class="game-card-img">
         </div>
         <div class="game-card-body">
           <h3 class="game-title">Yowlah Superstars</h3>
@@ -1024,9 +1025,9 @@
 
       <!-- CARD 4 -->
       <div class="game-card">
-        <div class="card-image-wrap">
+        <div class="card-image-wrap" onclick="openModal('game4')">
           <span class="card-year">2025</span>
-          <img src="orchid.png" class="game-card-img" onclick="openModal('game4')">
+          <img src="orchid.png" class="game-card-img">
             </svg>
         </div>
         <div class="game-card-body">
@@ -1048,14 +1049,14 @@
 
       <!-- CARD 5 -->
       <div class="game-card">
-        <div class="card-image-wrap">
+        <div class="card-image-wrap" onclick="openModal('game5')">
           <span class="card-year">2026</span>
-          <img src="lastcluelogo.png" class="game-card-img" onclick="openModal('game5')">
+          <img src="lastcluelogo.png" class="game-card-img">
         </div>
         <div class="game-card-body">
           <h3 class="game-title">The Last Clue</h3>
           <p class="game-desc">
-            An Unreal Engine game project that utilizes high-end graphics to deliver an authentic experience made by Arabs.
+            An Unreal Engine game project made with the help of Arab Youth Hub & Games Ventures.
           </p>
           <div class="game-meta">
             <span class="tag skill">Level Design</span>
@@ -1130,7 +1131,7 @@
       game1: {
         title: 'Al Ghroob',
         desc: `Prior to my experience as a hobbyist, this project gave me a head start of how it is like to work within a team with different skills and disciplines. \n\n Guided by Endless Studio's 1st cohort in Abu Dhabi, I learned how to program player movement, controls, and enemy AI. \n\n As such, this project opened doors for me to explore in the game industry in the U.A.E.`,
-        screenshots: [null, null, null] // Replace null with 'path/to/screenshot.jpg'
+        screenshots: [null, 'alghroob1.png', 'alghroob2.png'] // Replace null with 'path/to/screenshot.jpg'
       },
       game2: {
         title: 'The X Floors',
@@ -1150,7 +1151,7 @@
       game5: {
         title: 'The Last Clue',
         desc: `With the help of Arab Youth Hackathon hosted by Arab Youth Center and Games Ventures. I was accepted to being part of the 4 teams to making a high quality game that encompasses Arab Culture`,
-        screenshots: [null, null, null]
+        screenshots: ['group8.png', 'lastclue.png', 'lastclue2.png']
       },
     };
 
